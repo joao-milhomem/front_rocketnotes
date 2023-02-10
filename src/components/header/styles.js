@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-  grid-area: header;
+  grid-area: "header";
 
   display: flex;
   justify-content: space-between;
