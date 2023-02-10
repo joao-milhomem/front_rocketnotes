@@ -3,11 +3,11 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   align-items: center;
-
+  margin-bottom: 12px;
   width: 100%;
 
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-  border-radius: 5px;
+  border-radius: 10px;
 
   > svg {
     margin-left: 16px;
