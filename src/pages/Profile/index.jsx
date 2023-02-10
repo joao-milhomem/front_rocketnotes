@@ -1,23 +1,27 @@
 import { FiArrowLeft, FiCamera, FiLock, FiMail, FiUser } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Avatar, Container, Form } from "./styles";
 
-export function Profile(params) {
+export function Profile() {
   return (
     <Container>
       <header>
-        <a href="">
+        <Link to="/">
           <FiArrowLeft />
-        </a>
+        </Link>
       </header>
 
       <Form>
         <Avatar>
-          <img src="https://github.com/joao-milhomem.png" alt="Foto de perfil" />
-          
+          <img
+            src="https://github.com/joao-milhomem.png"
+            alt="Foto de perfil"
+          />
+
           <label htmlFor="avatar">
-            <FiCamera/>
+            <FiCamera />
           </label>
 
           <input type="file" name="" id="avatar" />

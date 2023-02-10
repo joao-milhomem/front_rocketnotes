@@ -41,6 +41,7 @@ export function Home() {
       <Content>
         <Section title="Minhas notas">
           <Note
+            to
             data={{
               title: "Minhas notas",
               tags: [
@@ -55,6 +56,7 @@ export function Home() {
                 },
               ],
             }}
+            t
           />
 
           <Note
@@ -76,7 +78,7 @@ export function Home() {
         </Section>
       </Content>
 
-      <NewNote>
+      <NewNote to="/new">
         <FiPlus />
         <span>Nova nota</span>
       </NewNote>

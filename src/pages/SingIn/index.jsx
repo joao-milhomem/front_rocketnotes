@@ -1,7 +1,8 @@
 import { Container, Form, Background } from "./styles";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { FiLock, FiMail} from 'react-icons/fi'
+import { FiLock, FiMail } from "react-icons/fi";
+import { Link } from "react-router-dom";
 export function SingIn() {
   return (
     <Container>
@@ -12,12 +13,14 @@ export function SingIn() {
 
         <Input placeholder="Email" icon={FiMail} type="mail" />
         <Input placeholder="Senha" icon={FiLock} type="password" />
-        <Button title="Entrar" />   
-        
-        <a href="">Criar conta</a>
+        <Button title="Entrar" />
+
+        <Link to="/register" title="Criar conta">
+          Criar conta
+        </Link>
       </Form>
 
-      <Background/>
+      <Background />
     </Container>
   );
 }

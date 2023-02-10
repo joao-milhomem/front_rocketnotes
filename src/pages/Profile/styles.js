@@ -24,7 +24,7 @@ export const Form = styled.form`
   max-width: 340px;
   margin: 30px auto;
 
-  >div:nth-last-child(3){
+  > div:nth-last-child(3) {
     margin-top: 24px;
   }
 `;
