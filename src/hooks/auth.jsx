@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createContext, useContext } from "react";
 import { api } from "../services/api";
 
 const AuthContext = createContext({});
+
+function useAuthContext() {
+  const context = useContext(AuthContext);
+  return context;
+}
 
 function AuthProvider({ children }) {
   const [data, setData] = useState({});
@@ -13,6 +18,8 @@ function AuthProvider({ children }) {
       const { user, token } = response.data;
       api.defaults.headers.authorization = `Bearer ${token}`;
       setData({ user, token });
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
+      localStorage.setItem("@rocketnotes:token", token);
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
@@ -22,16 +29,29 @@ function AuthProvider({ children }) {
     }
   }
 
+  async function singOut() {
+    localStorage.removeItem("@rocketnotes:user");
+    localStorage.removeItem("@rocketnotes:token");
+    setData({});
+  }
+
+  useEffect(() => {
+    const user = localStorage.getItem("@rocketnotes:user");
+    const token = localStorage.getItem("@rocketnotes:token");
+
+    if (user && token) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      setData({
+        token,
+        user: JSON.parse(user),
+      });
+    }
+  }, []);
   return (
-    <AuthContext.Provider value={{ singIn, user: data.user }}>
+    <AuthContext.Provider value={{ singIn, singOut, user: data.user }}>
       {children}
     </AuthContext.Provider>
   );
-}
-
-function useAuthContext() {
-  const context = useContext(AuthContext);
-  return context;
 }
 
 export { AuthProvider, AuthContext, useAuthContext };
