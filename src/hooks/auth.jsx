@@ -35,6 +35,34 @@ function AuthProvider({ children }) {
     setData({});
   }
 
+  async function updateProfile(user, avatarFile) {
+    try {
+      if (avatarFile) {
+        const formData = new FormData();
+        formData.append("avatar", avatarFile);
+        const response = await api.patch("/users/avatar", formData);
+        console.log(response);
+        user.avatar = response.data.avatar;
+      }
+
+      await api.put("/users", user);
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
+
+      setData({
+        user,
+        token: data.token,
+      });
+      alert("Usuário atualizado com sucesso");
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Ops, algo deu errado");
+        console.log(error);
+      }
+    }
+  }
+
   useEffect(() => {
     const user = localStorage.getItem("@rocketnotes:user");
     const token = localStorage.getItem("@rocketnotes:token");
@@ -48,7 +76,9 @@ function AuthProvider({ children }) {
     }
   }, []);
   return (
-    <AuthContext.Provider value={{ singIn, singOut, user: data.user }}>
+    <AuthContext.Provider
+      value={{ singIn, singOut, updateProfile, user: data.user }}
+    >
       {children}
     </AuthContext.Provider>
   );

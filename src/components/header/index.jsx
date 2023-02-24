@@ -1,14 +1,18 @@
 import { Container, Profile, Logout } from "./styles";
 import { RiShutDownLine } from "react-icons/ri";
 import { useAuthContext } from "../../hooks/auth";
+import { api } from "../../services/api";
 
 export function Header() {
-  const { singOut } = useAuthContext();
-
+  const { singOut, user } = useAuthContext();
+  const avatarPreview = user.avatar
+    ? `${api.defaults.baseURL}/files/${user.avatar}`
+    : avatarPlaceholderIMG;
+  
   return (
     <Container>
       <Profile to="/profile">
-        <img src="https://github.com/diego3g.png" alt="Foto de perfil" />
+        <img src={avatarPreview } alt="Foto de perfil" />
 
         <div>
           <span>Bem vindo</span>
