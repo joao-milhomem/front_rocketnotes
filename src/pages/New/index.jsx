@@ -6,8 +6,18 @@ import { Section } from "../../components/Section";
 import { NoteItem } from "../../components/NoteItem";
 import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export function New() {
+  const [links, setLinks] = useState([]);
+  const [newLink, setNewLink] = useState("");
+
+  function handleLinks() {
+    setLinks((prevLinks) => [...prevLinks, newLink]);
+    setNewLink("")
+    console.log(links);
+  }
+
   return (
     <Container>
       <Header />
@@ -24,8 +34,17 @@ export function New() {
           <Textarea placeholder="Observações" />
 
           <Section title="Links úteis">
-            <NoteItem value="link.com.br" />
-            <NoteItem isNew placeholder="Novo link" />
+            {links.map((link, index) => (
+              <NoteItem key={index} value={link} onClick={() => {}} />
+            ))}
+
+            <NoteItem
+              isNew
+              placeholder="Novo link"
+              onChange={(e) => setNewLink(e.target.value)}
+              value={newLink}
+              onClick={handleLinks}
+            />
           </Section>
 
           <Section title="Marcadores">
