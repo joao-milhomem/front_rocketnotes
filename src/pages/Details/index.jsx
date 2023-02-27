@@ -15,7 +15,7 @@ export function Details() {
   const [data, setData] = useState("");
 
   function handleBack() {
-    navigate("/");
+    navigate("-1");
   }
 
   async function handleRemoveNote() {
@@ -23,10 +23,10 @@ export function Details() {
 
     if (confirm) {
       await api.delete(`/notes/${params.id}`);
-      navigate("/");
+      navigate(-1);
     }
   }
-  
+
   useEffect(() => {
     async function fetchNote() {
       const response = await api.get(`/notes/${params.id}`);
