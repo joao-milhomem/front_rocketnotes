@@ -17,6 +17,16 @@ export function Details() {
   function handleBack() {
     navigate("/");
   }
+
+  async function handleRemoveNote() {
+    const confirm = window.confirm("Deseja realmente excluir a nota?");
+
+    if (confirm) {
+      await api.delete(`/notes/${params.id}`);
+      navigate("/");
+    }
+  }
+  
   useEffect(() => {
     async function fetchNote() {
       const response = await api.get(`/notes/${params.id}`);
@@ -33,7 +43,7 @@ export function Details() {
       {data && (
         <main>
           <Content>
-            <ButtonText title="Excluir nota" />
+            <ButtonText title="Excluir nota" onClick={handleRemoveNote} />
 
             <h1>{data.title}</h1>
             <p>{data.description}</p>
@@ -43,7 +53,9 @@ export function Details() {
                 <List>
                   {data.links.map((link) => (
                     <li key={String(link.id)}>
-                      <a target="_blank" href={link.url}>{link.url} </a>
+                      <a target="_blank" href={link.url}>
+                        {link.url}{" "}
+                      </a>
                     </li>
                   ))}
                 </List>
@@ -58,7 +70,7 @@ export function Details() {
               </Section>
             )}
 
-            <Button title="Voltar" onClick = {handleBack} />
+            <Button title="Voltar" onClick={handleBack} />
           </Content>
         </main>
       )}
