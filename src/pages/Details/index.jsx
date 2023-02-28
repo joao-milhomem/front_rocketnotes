@@ -15,7 +15,7 @@ export function Details() {
   const [data, setData] = useState("");
 
   function handleBack() {
-    navigate("-1");
+    navigate(-1);
   }
 
   async function handleRemoveNote() {

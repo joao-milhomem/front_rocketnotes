@@ -3,12 +3,20 @@ import { RiShutDownLine } from "react-icons/ri";
 import { useAuthContext } from "../../hooks/auth";
 import { api } from "../../services/api";
 import avatarSVG from "../../assets/avatar_placeholder.svg";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
-  const { singOut, user } = useAuthContext();
+  const navigate = useNavigate();
+
+  const { singOut, user, data } = useAuthContext();
   const avatarView = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarSVG;
+
+  function handleSingOut() {
+    navigate("/");
+    singOut();
+  }
 
   return (
     <Container>
@@ -17,11 +25,11 @@ export function Header() {
 
         <div>
           <span>Bem vindo</span>
-          <strong>Diego Fernandes</strong>
+          <strong>{user.name}</strong>
         </div>
       </Profile>
 
-      <Logout onClick={singOut}>
+      <Logout onClick={handleSingOut}>
         <RiShutDownLine />
       </Logout>
     </Container>

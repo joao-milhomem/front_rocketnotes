@@ -66,7 +66,7 @@ export function New() {
     });
 
     alert("Nota cadastrada com sucesso!");
-    navigate("/");
+    navigate(-1);
   }
 
   return (
@@ -77,7 +77,7 @@ export function New() {
         <Form>
           <header>
             <h1>Criar nota</h1>
-            <Link to="/">Voltar</Link>
+            <Link to={"/"}>Voltar</Link>
           </header>
 
           <Input
