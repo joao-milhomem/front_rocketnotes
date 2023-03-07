@@ -105,7 +105,7 @@ export function Home() {
         </Section>
       </Content>
 
-      <NewNote to={-1}>
+      <NewNote to="/new">
         <FiPlus />
         <span>Nova nota</span>
       </NewNote>
